@@ -1,9 +1,10 @@
+// isPrime - Returns true or false, indicating whether the given number is prime.
 function isPrime(num) {
 
   if (num === 2) {
     return true;
   }
-  else if(num > 1){
+  else if (num > 1) {
     for (var i = 2;  i < num; i++) {
 
       if (num % i !== 0 ) {
@@ -32,7 +33,7 @@ console.log(isPrime(10000000000000)); //false
 
 
 
-
+// factorial - Returns a number that is the factorial of the given number.
 function factorial(num) {
   if (num < 0)
     return -1;
@@ -48,12 +49,12 @@ console.log(factorial(6));            // 720
 
 
 
-
-function fib(n, a=1, b=0) {
+// fib - Returns the nth Fibonacci number.
+function fib (n, a = 1, b = 0) {
   if (n === 0) {
     return b;
   } else {
-    return fib(n-1, b, a+b);
+    return fib (n - 1, b, a + b);
   }
 }
 console.log(fib(0));            // 0
@@ -63,8 +64,8 @@ console.log(fib(20));           // 6765
 
 
 
-
-function isSorted(arr) {
+// isSorted - Returns true or false, indicating whether the given array of numbers is sorted.
+function isSorted (arr) {
   var len = arr.length - 1;
   for(var i = 0; i < len; ++i) {
     if(arr[i] > arr[i+1]) {
@@ -79,13 +80,18 @@ console.log(isSorted([3, 9, -3, 10]));               // false
 
 
 
+// reverse - Reverses the given string (yes, using the built in reverse function is cheating).
 function reverse(str){
+  var arr = str.split('');
   var rtnStr = [];
-  if(!str || typeof str !== 'string' || str.length < 2 ) return str;
-
-  for(var i = str.length-1; i>=0;i--){
-    rtnStr.push(str[i]);
+  if(!str || typeof str !== 'string' || str.length < 2 ) {
+    return str;
   }
+
+  for (var i = str.length-1; i>=0;i--) {
+    rtnStr.push(arr[i]);
+  }
+
   return rtnStr.join('');
 }
 console.log(reverse(''));                           // ' '
@@ -93,3 +99,127 @@ console.log(reverse('abcdef'));                    // 'fedcba'
 
 
 
+//indexOf - Implement the indexOf function for arrays.
+function indexOf (arr, num) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] === num) {
+      return i
+    }
+  }
+  return -1
+}
+
+console.log(indexOf([1, 2, 3], 1));               // 0
+console.log(indexOf([1, 2, 3], 4));               // -1
+
+
+
+
+// missing - Takes an unsorted array of unique numbers (ie. no repeats) from 1 through some number n, and returns the missing number in the sequence (there are either no missing numbers, or exactly one missing number). Can you do it in O(N) time? Hint: There’s a clever formula you can use.
+function missing (arr){
+  var n = arr.length+1,
+    sum = 0,
+    expectedSum = n* (n + 1)/2;
+
+  for(var i = 0, len = arr.length; i < len; i++){
+    sum += arr[i];
+  }
+
+  return expectedSum - sum;
+}
+console.log(missing([]));             //undefined
+console.log(missing([1, 4, 3]));      //2
+console.log(missing([2, 3, 4]));      //1
+console.log(missing([5, 1, 4, 2]));   //3
+console.log(missing([1, 2, 3, 4]));   //undefined
+
+
+// function isPalindrome(letters) {
+//
+//   var characters  = letters.split(''),
+//     firstLetter = characters.shift(),
+//     lastLetter  = characters.pop();
+//
+//   if (firstLetter !== lastLetter) {
+//     return false;
+//   }
+//
+//   if (characters.length < 2) {
+//     return true;
+//   }
+//
+//   return isPalindrome(characters.join(''));
+//
+// }
+// console.log(isPalindrome(''));                                // true
+// console.log(isPalindrome('abcdcba'));                         // true
+// console.log(isPalindrome('abcd'));                            // false
+// console.log(isPalindrome('A man a plan a canal Panama'));     // true
+
+
+// isPalindrome - Return true or false indicating whether the given string is a plaindrone (case and space insensitive).
+function isPalindrome (strSample) {
+
+  let isPalindrome = s =>
+    s.split('')
+      .reverse()
+      .join('') === s;
+
+  let lowerCaseNoSpace = s =>
+      concatMap(c => c !== ' ' ? [c.toLowerCase()] : [],
+        s.split(''))
+        .join(''),
+
+    concatMap = (f, xs) => [].concat.apply([], xs.map(f));
+
+
+  return isPalindrome(
+    lowerCaseNoSpace(strSample)
+  );
+
+
+}
+console.log(isPalindrome(''));                                // true
+console.log(isPalindrome('abcdcba'));                         // true
+console.log(isPalindrome('abcd'));                            // false
+console.log(isPalindrome('A man a plan a canal Panama'));     // true
+
+
+
+// isBalanced - Takes a string and returns true or false indicating whether its curly braces are balanced.
+function isBalanced(str) {
+  var i, ch, expectedBracket;
+
+  var temp = [];
+  var len = str.length;
+
+  var openingBrackets = ['[', '{', '('];
+  var closingBrackets = [']', '}', ')'];
+
+  for (i = 0; i < len; i++) {
+    ch = str[i];
+
+    if (openingBrackets.indexOf(ch) > -1) {
+      temp.push(ch);
+    } else if (closingBrackets.indexOf(ch) > -1) {
+
+      expectedBracket = openingBrackets[closingBrackets.indexOf(ch)];
+      if (temp.length === 0 || (temp.pop() !== expectedBracket)) {
+        return false;
+      }
+
+    } else {
+      continue;
+    }
+  }
+
+  return (temp.length === 0);
+}
+
+
+console.log(isBalanced('}{'));                      // false
+console.log(isBalanced('{{}'));                     // false
+console.log(isBalanced('{}{}'));                    // false
+console.log(isBalanced('foo { bar { baz } boo }')); // true
+console.log(isBalanced('foo { bar { baz }'));       // false
+console.log(isBalanced('foo { bar } }'));           // false
