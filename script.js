@@ -82,17 +82,16 @@ console.log(isSorted([3, 9, -3, 10]));               // false
 
 // reverse - Reverses the given string (yes, using the built in reverse function is cheating).
 function reverse(str){
-  var arr = str.split('');
-  var rtnStr = [];
+  var arr = str.split('')
+  var rtnStr = ''
   if(!str || typeof str !== 'string' || str.length < 2 ) {
     return str;
   }
 
-  for (var i = str.length-1; i>=0;i--) {
-    rtnStr.push(arr[i]);
+  for (var i = arr.length - 1; i >= 0; i--) {
+    rtnStr += arr[i];
   }
-
-  return rtnStr.join('');
+  return rtnStr;
 }
 console.log(reverse(''));                           // ' '
 console.log(reverse('abcdef'));                    // 'fedcba'
@@ -116,17 +115,34 @@ console.log(indexOf([1, 2, 3], 4));               // -1
 
 
 // missing - Takes an unsorted array of unique numbers (ie. no repeats) from 1 through some number n, and returns the missing number in the sequence (there are either no missing numbers, or exactly one missing number). Can you do it in O(N) time? Hint: There’s a clever formula you can use.
-function missing (arr){
-  var n = arr.length+1,
-    sum = 0,
-    expectedSum = n* (n + 1)/2;
+// function missing (arr){
+//   var n = arr.length + 1,
+//     sum = 0,
+//     expectedSum = n * (n + 1)/2;
+//
+//   for(var i = 0, len = arr.length; i < len; i++){
+//     sum += arr[i];
+//   }
+//
+//   return expectedSum - sum;
+// }
 
-  for(var i = 0, len = arr.length; i < len; i++){
-    sum += arr[i];
+function missing(array) {
+  var missing = undefined;
+  var sort = array.sort(function (a, b) {
+    return a - b;
+  });
+  var max = Math.max.apply(null, array);
+
+  for (var i = 1; i < max; i++) {
+    if (sort.indexOf(i) === -1) {
+
+      return missing = i
+    }
   }
-
-  return expectedSum - sum;
+  return missing
 }
+
 console.log(missing([]));             //undefined
 console.log(missing([1, 4, 3]));      //2
 console.log(missing([2, 3, 4]));      //1
@@ -134,50 +150,30 @@ console.log(missing([5, 1, 4, 2]));   //3
 console.log(missing([1, 2, 3, 4]));   //undefined
 
 
-// function isPalindrome(letters) {
-//
-//   var characters  = letters.split(''),
-//     firstLetter = characters.shift(),
-//     lastLetter  = characters.pop();
-//
-//   if (firstLetter !== lastLetter) {
-//     return false;
-//   }
-//
-//   if (characters.length < 2) {
-//     return true;
-//   }
-//
-//   return isPalindrome(characters.join(''));
-//
-// }
-// console.log(isPalindrome(''));                                // true
-// console.log(isPalindrome('abcdcba'));                         // true
-// console.log(isPalindrome('abcd'));                            // false
-// console.log(isPalindrome('A man a plan a canal Panama'));     // true
-
 
 // isPalindrome - Return true or false indicating whether the given string is a plaindrone (case and space insensitive).
-function isPalindrome (strSample) {
 
-  let isPalindrome = s =>
-    s.split('')
-      .reverse()
-      .join('') === s;
+// function isPalindrome (strSample) {
+//
+//   let isPalindrome = s =>
+//     s.split('')
+//       .reverse()
+//       .join('') === s;
+//
+//   let lowerCaseNoSpace = s =>
+//       concatMap(c => c !== ' ' ? [c.toLowerCase()] : [],
+//         s.split(''))
+//         .join(''),
+//
+//     concatMap = (f, xs) => [].concat.apply([], xs.map(f));
+//   return isPalindrome(
+//     lowerCaseNoSpace(strSample)
+//   );
+// }
 
-  let lowerCaseNoSpace = s =>
-      concatMap(c => c !== ' ' ? [c.toLowerCase()] : [],
-        s.split(''))
-        .join(''),
-
-    concatMap = (f, xs) => [].concat.apply([], xs.map(f));
-
-
-  return isPalindrome(
-    lowerCaseNoSpace(strSample)
-  );
-
-
+function isPalindrome(str) {
+  str = str.replace(/[^a-zA-Z]/g, '')
+  return str.split('').reverse().join('').toUpperCase() === str.toUpperCase()
 }
 console.log(isPalindrome(''));                                // true
 console.log(isPalindrome('abcdcba'));                         // true
