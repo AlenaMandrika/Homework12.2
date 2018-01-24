@@ -152,25 +152,6 @@ console.log(missing([1, 2, 3, 4]));   //undefined
 
 
 // isPalindrome - Return true or false indicating whether the given string is a plaindrone (case and space insensitive).
-
-// function isPalindrome (strSample) {
-//
-//   let isPalindrome = s =>
-//     s.split('')
-//       .reverse()
-//       .join('') === s;
-//
-//   let lowerCaseNoSpace = s =>
-//       concatMap(c => c !== ' ' ? [c.toLowerCase()] : [],
-//         s.split(''))
-//         .join(''),
-//
-//     concatMap = (f, xs) => [].concat.apply([], xs.map(f));
-//   return isPalindrome(
-//     lowerCaseNoSpace(strSample)
-//   );
-// }
-
 function isPalindrome(str) {
   str = str.replace(/[^a-zA-Z]/g, '')
   return str.split('').reverse().join('').toUpperCase() === str.toUpperCase()
@@ -183,33 +164,17 @@ console.log(isPalindrome('A man a plan a canal Panama'));     // true
 
 
 // isBalanced - Takes a string and returns true or false indicating whether its curly braces are balanced.
-function isBalanced(str) {
-  var i, ch, expectedBracket;
-
-  var temp = [];
-  var len = str.length;
-
-  var openingBrackets = ['[', '{', '('];
-  var closingBrackets = [']', '}', ')'];
-
-  for (i = 0; i < len; i++) {
-    ch = str[i];
-
-    if (openingBrackets.indexOf(ch) > -1) {
-      temp.push(ch);
-    } else if (closingBrackets.indexOf(ch) > -1) {
-
-      expectedBracket = openingBrackets[closingBrackets.indexOf(ch)];
-      if (temp.length === 0 || (temp.pop() !== expectedBracket)) {
-        return false;
-      }
-
-    } else {
-      continue;
-    }
+function isBalanced (str) {
+  var num1 = 0
+  var num2 = 0
+  for (var i = 0; i < str.length; i++) {
+    if (str[i] === '{') num1++
+    if (str[i] === '}') num2++
   }
-
-  return (temp.length === 0);
+  if (str.indexOf('{') < str.indexOf('}') && num1 === num2 && str.indexOf('{}')) {
+    return true
+  }
+  return false
 }
 
 
