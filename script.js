@@ -115,20 +115,8 @@ console.log(indexOf([1, 2, 3], 4));               // -1
 
 
 // missing - Takes an unsorted array of unique numbers (ie. no repeats) from 1 through some number n, and returns the missing number in the sequence (there are either no missing numbers, or exactly one missing number). Can you do it in O(N) time? Hint: There’s a clever formula you can use.
-// function missing (arr){
-//   var n = arr.length + 1,
-//     sum = 0,
-//     expectedSum = n * (n + 1)/2;
-//
-//   for(var i = 0, len = arr.length; i < len; i++){
-//     sum += arr[i];
-//   }
-//
-//   return expectedSum - sum;
-// }
-
 function missing(array) {
-  var missing = undefined;
+  var missing;
   var sort = array.sort(function (a, b) {
     return a - b;
   });
